@@ -1,4 +1,9 @@
 defmodule UkCovid19.Client do
+  @moduledoc """
+  Interface to access the API service for COVID-19 data in the United Kingdom.
+  """
+  @moduledoc since: "1.0.0"
+
   alias UkCovid19.Request
   alias UkCovid19.Response
 
@@ -7,6 +12,19 @@ defmodule UkCovid19.Client do
 
   def endpoint, do: @endpoint
 
+  @doc ~S"""
+  Issues an HTTP request to the API service using the `UkCovid19.Request` struct.
+  ## Examples
+      request = %Request{
+        filters: ["areaType=ltla", "areaName=adur"],
+        structure: %{
+          name: "areaName",
+          date: "date",
+          newCases: "newCasesBySpecimenDate"
+        }
+      }
+      UkCovid19.Client.get(request)
+  """
   @spec get(%Request{}) :: %Response{}
   def get(request) do
     response = get_paged_data(request)
@@ -19,12 +37,30 @@ defmodule UkCovid19.Client do
     }
   end
 
+  @doc ~S"""
+  Issues an HTTP request to the API service using the `UkCovid19.Request` struct.
+  ## Examples
+      request = %Request{
+        filters: ["areaType=ltla", "areaName=adur"],
+        structure: %{
+          name: "areaName",
+          date: "date",
+          newCases: "newCasesBySpecimenDate"
+        }
+      }
+      UkCovid19.Client.head(request)
+  """
   @spec head(%Request{}) :: map()
   def head(request) do
     response = HTTPoison.head!(build_request(request), [], @options)
     Enum.into(response.headers, %{})
   end
 
+  @doc ~S"""
+  Issues an HTTP request to the API service.
+  ## Examples
+      UkCovid19.Client.options()
+  """
   @spec options :: map()
   def options do
     response = HTTPoison.options!(@endpoint, [], @options)
