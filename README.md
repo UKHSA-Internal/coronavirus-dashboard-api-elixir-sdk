@@ -61,7 +61,7 @@ be found at [https://hexdocs.pm/uk_covid19_sdk](https://hexdocs.pm/uk_covid19_sd
 
 This library is a contribution by [Callum Vass](https://github.com/CallumVass). 
 
-Maintained by `Public Health England`_.
+Maintained by [Public Health England](https://www.gov.uk/government/organisations/public-health-england).
 
 Copyright (c) 2020, Public Health England.
 
